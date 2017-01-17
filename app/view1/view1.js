@@ -9,6 +9,8 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', [function() {
-
+.controller('View1Ctrl', ["$firebaseObject", function($firebaseObject) {
+	const rootRef = firebase.database().ref().child('angular');
+	const ref = rootRef.child('object');
+	this.object = $firebaseObject(ref);
 }]);
