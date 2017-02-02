@@ -1,5 +1,37 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div ng-controller="View2Ctrl" layout="row">
+
+	<md-sidenav flex="15" class="md-sidenav-left" md-is-locked-open="true">
+	    <md-toolbar class="md-theme-indigo">
+	    	<h1 class="md-toolbar-tools">Side Navigation</h1>
+	    </md-toolbar>
+    </md-sidenav>
+
+    <md-content flex="20" class="second-container">
+	    <div layout="column">
+	    	<md-list class="width">
+	    		<md-toolbar class="green">
+	    			<h1 class="md-toolbar-tools">Search</h1>
+	    		</md-toolbar>
+	    		<md-list-item class="md-3-line" data="{{ item.symbol }}" ng-click="showGraph(item.symbol)" ng-repeat="item in stocks">
+	    			<div class="md-list-item-text" layout="column">
+	    			<h3>{{ item.name }}</h3>
+	    			<h4>{{ item.symbol }}</h4>
+	    			</div>
+	    			<label class="priceLabel">Price</lebel>
+	    		</md-list-item>
+	    	</md>
+	    </div>
+    </md-content>
+
+   	<md-content flex="65" layout-padding class="third-container">
+	    <div layout="column" class="fixed-div">
+	    	<md-toolbar>
+	    		<h1 class="md-toolbar-tools"></h1>
+	    	</md-toolbar>
+	   		<div id="chart1"> 
+		        	<div class="chart"></div>
+			</div>
+	    </div>
+    </md-content>
+
+</div>

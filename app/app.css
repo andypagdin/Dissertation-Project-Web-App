@@ -23,3 +23,35 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+.ng-scope {
+   height: 100%;
+}
+
+.md-sidenav-left {
+   background-color: #3aacec;
+}
+
+.second-container {
+   background-color: #3772b3;
+}
+
+.third-container {
+   background-color: #2a2a2b;
+   width: 65%;
+}
+
+.width {
+  width: 100%;
+  padding: 0;
+}
+
+.priceLabel {
+  background-color: #29ce9a;
+  padding: 3px 15px 3px 15px;
+  border-radius: 8px;
+}
+
+.green {
+  background-color: #29ce9a !important;
+}
