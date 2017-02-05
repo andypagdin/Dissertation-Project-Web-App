@@ -55,3 +55,18 @@
 .green {
   background-color: #29ce9a !important;
 }
+
+.graphHeader { 
+  background-color: #2a2a2b !important;
+  color: #FFF;
+}
+
+.graphHeader h1, h2 {
+    margin: 0px !important;
+}
+
+.stockData li {
+  list-style-type: none;
+  padding-bottom: 10px;
+  color: #FFF;
+}

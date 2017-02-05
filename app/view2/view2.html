@@ -25,12 +25,20 @@
 
    	<md-content flex="65" layout-padding class="third-container">
 	    <div layout="column" class="fixed-div">
-	    	<md-toolbar>
-	    		<h1 class="md-toolbar-tools"></h1>
+	    	<md-toolbar ng-repeat="item in data" ng-if="$last" class="graphHeader">
+	    		<h1>{{ symbol }}</h1>
+	    		<h2>{{ item[4] | number : 2 }}</h2>
 	    	</md-toolbar>
 	   		<div id="chart1"> 
-		        	<div class="chart"></div>
+		        <div class="chart"></div>
 			</div>
+			<p>
+			<ul ng-repeat="item in data" ng-if="$last" class="stockData">
+				<li>Open - {{ item[1] | number : 2 }}</li>
+				<li>High - {{ item[2] | number : 2 }}</li>
+				<li>Low - {{ item[3] | number : 2 }}</li>
+				<!-- <li>Close - {{ item[4] | number : 2 }}</li> -->
+			</ul>
 	    </div>
     </md-content>
 

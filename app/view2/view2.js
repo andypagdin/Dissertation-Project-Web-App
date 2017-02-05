@@ -121,6 +121,13 @@ $scope.showGraph = function(symbol){
 	        dataGrouping: { enabled: false },
 	        tooltip:      { valueDecimals: 2 },
 	    };
+
+	    $scope.$apply(function () {
+	    	$scope.symbol = symbol
+	    	$scope.data = ohlcData
+            $scope.high = ohlcData[251][1]
+    	});
+
 	    _chart.addSeries(ohlcSeries);
 	}
 
@@ -129,9 +136,9 @@ $scope.showGraph = function(symbol){
 	        chart: {
 	            renderTo: document.querySelector('#chart1 .chart')
 	        },
-	        title: {
-	            text: symbol + ' Stock Price'
-	        },
+	        // title: {
+	        //     text: symbol + ' Stock Price'
+	        // },
 	        rangeSelector: {
 	            //3 months:
 	            selected: 1
