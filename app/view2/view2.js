@@ -9,24 +9,59 @@ angular.module('myApp.view2', ['ngRoute'])
   });
 }])
 
-.controller('View2Ctrl', ['$scope', function($scope) {
+.controller('View2Ctrl', ['$scope', '$http', function($scope, $http) {
 
-	 $scope.stocks = [
+
+
+	$scope.stocks = [
       {
         symbol : "AAPL",
-        name : "Apple"
+        shortName : "Apple",
+        longName : "Apple Inc.",
+        description : "Apple Inc. is an American multinational corporation that designs and manufactures consumer electronics and software products. It was established in Cupertino, California, on April 1, 1976, by Steve Jobs, Steve Wozniak, and Ronald Wayne, and was incorporated on January 3, 1977."
       },
       {
         symbol : "YHOO",
-        name : "Yahoo"
+        shortName : "Yahoo",
+        longName : "Yahoo! Inc.",
+        description : "Yahoo! Inc. (Yahoo), along with its subsidiaries, incorporated in 1995, is engaged in digital information discovery. The Company focuses on informing, connecting and entertaining its users with its search (Yahoo Search), communications, including Yahoo Mail and Yahoo Messenger and digital content products, including Tumblr, and its over four verticals, such as Yahoo News, Yahoo Sports, Yahoo Finance and Yahoo Lifestyle. The Company's segments include the Americas; Europe, Middle East and Africa (EMEA), and Asia Pacific."
       },
       {
         symbol : "MSFT",
-        name : "Microsoft"
+        shortName : "Microsoft",
+        longName : "Microsoft Corporation",
+        description : "Microsoft Corporation, incorporated on September 22, 1993, is a technology company. The Company develops, licenses, and supports a range of software products, services and devices. The Company's segments include Productivity and Business Processes, Intelligent Cloud and More Personal Computing. The Company's products include operating systems; cross-device productivity applications; server applications; business solution applications; desktop and server management tools; software development tools; video games, and training and certification of computer system integrators and developers."
+      },
+      {
+        symbol : "AAL",
+        shortName : "American Airlines",
+        longName : "American Airlines Group, Inc.",
+        description : "American Airlines Group Inc. (AAG), incorporated on February 16, 1982, is a holding company whose primary business activity is the operation of a network air carrier through its subsidiaries, American Airlines, Inc. (American) and its regional subsidiaries, Envoy Aviation Group Inc. (Envoy), Piedmont Airlines, Inc. (Piedmont) and PSA Airlines, Inc. (PSA) that operate under capacity purchase agreements as American Eagle."
+      },
+      {
+        symbol : "NFLX",
+        shortName : "Netflix",
+        longName : "Netflix, Inc.",
+        description : "Netflix, Inc. (Netflix), incorporated on August 29, 1997, is an Internet television network with over 86 million members in over 190 countries enjoying more than 125 million hours of television (TV) shows and movies per day, including original series, documentaries and feature films. Members can watch as much as they want, anytime, anywhere, on nearly any Internet-connected screen. Members can play, pause and resume watching, all without commercials or commitments."
+      },
+      {
+        symbol : "TSLA",
+        shortName : "Tesla",
+        longName : "Tesla, Inc.",
+        description : "Tesla, Inc., formerly Tesla Motors, Inc., incorporated on July 1, 2003, designs, develops, manufactures and sells electric vehicles and energy storage products. The Company produces and sells two electric vehicles: the Model S sedan and the Model X sport utility vehicle (SUV). The Company has delivered over 107,000 Model S vehicles across the world. In addition to developing its own vehicles, it sells energy storage products. Its energy storage products include the seven kilowatt-hour and 10 kilowatt-hour Powerwall for residential applications, and the 100 kilowatt-hour Powerpack for commercial and industrial applications."
       },
     ];
 
-$scope.showGraph = function(symbol){
+function RefreshFeed($scope, $http) {
+    // Define the JSON feed for fetching the RSS feed
+    var jsonFeed = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D'" + $scope.rssFeed + "'%20limit%201&format=json";
+    // Actually fetch the feed
+    $http.get(jsonFeed).success(function (data) {
+        $scope.feed = data.query.results.rss;
+    });
+}
+
+$scope.showGraph = function(item){
 	var _now = new Date(),
 	_chart;
 
@@ -122,10 +157,36 @@ $scope.showGraph = function(symbol){
 	        tooltip:      { valueDecimals: 2 },
 	    };
 
+	    // Close value for the second to last item in the data
+	    var yesterdayOpen = ohlcData.slice(-2)[0][1]
+	    // Close value for the last item in the data
+	    var todayOpen = ohlcData.slice(-1)[0][1]
+	    var increase = todayOpen - yesterdayOpen
+	    increase = increase / yesterdayOpen * 100
+	    if(increase > 0)
+	    {
+	    	$scope.percentageChange = increase
+	    	$scope.changeSymbol = "+"
+	    	$scope.dynamicClass = "tickUp"
+	    }else{
+	    	var decrease = yesterdayOpen - todayOpen
+	    	decrease = decrease / yesterdayOpen * 100
+	    	$scope.percentageChange = decrease
+	    	$scope.changeSymbol = "-"
+			$scope.dynamicClass = "tickDown"
+	    }
+
 	    $scope.$apply(function () {
-	    	$scope.symbol = symbol
+	    	$scope.more = "More";
+	    	$scope.companyProfileLink = "https://finance.yahoo.com/quote/"+item.symbol+"/profile?p="+item.symbol
+	    	$scope.headlines = "Latest headlines for ";
+	    	$scope.stats = "Stats";
+	    	$scope.about = "About";
+	    	$scope.description = item.description
+	    	$scope.shortName = item.shortName
+	    	$scope.longName = item.longName
+	    	$scope.symbol = item.symbol
 	    	$scope.data = ohlcData
-            $scope.high = ohlcData[251][1]
     	});
 
 	    _chart.addSeries(ohlcSeries);
@@ -145,7 +206,7 @@ $scope.showGraph = function(symbol){
 	        }
 	    });
 
-	    var ticker = symbol
+	    var ticker = item.symbol
 	    var to = new Date(_now);
 	    var from = new Date(to);
 	    from.setMonth(to.getMonth() - 12);
@@ -160,6 +221,8 @@ $scope.showGraph = function(symbol){
 	        renderYahoo(ticker, data);
 	    });
 	});
+	$scope.rssFeed = "http://finance.yahoo.com/rss/headline?s=" + item.symbol;
+	RefreshFeed($scope,$http)
 	}
 }]);
 

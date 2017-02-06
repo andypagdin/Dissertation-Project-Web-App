@@ -1,20 +1,20 @@
 <div ng-controller="View2Ctrl" layout="row">
 
 	<md-sidenav flex="15" class="md-sidenav-left" md-is-locked-open="true">
-	    <md-toolbar class="md-theme-indigo">
-	    	<h1 class="md-toolbar-tools">Side Navigation</h1>
+	    <md-toolbar class="green">
+	    	<h1 class="md-toolbar-tools">Navigation</h1>
 	    </md-toolbar>
     </md-sidenav>
 
     <md-content flex="20" class="second-container">
 	    <div layout="column">
 	    	<md-list class="width">
-	    		<md-toolbar class="green">
-	    			<h1 class="md-toolbar-tools">Search</h1>
+	    		<md-toolbar class="lightGray">
+	    			<input type="text" ng-model="stockFilter" placeholder="Search by stock" class="stockSearch"/>
 	    		</md-toolbar>
-	    		<md-list-item class="md-3-line" data="{{ item.symbol }}" ng-click="showGraph(item.symbol)" ng-repeat="item in stocks">
-	    			<div class="md-list-item-text" layout="column">
-	    			<h3>{{ item.name }}</h3>
+	    		<md-list-item class="md-3-line" data="{{ item.symbol }}" ng-click="showGraph(item)" ng-repeat="item in stocks | filter: stockFilter">
+	    			<div class="md-list-item-text stockList" layout="column">
+	    			<h3>{{ item.shortName }}</h3>
 	    			<h4>{{ item.symbol }}</h4>
 	    			</div>
 	    			<label class="priceLabel">Price</lebel>
@@ -26,20 +26,49 @@
    	<md-content flex="65" layout-padding class="third-container">
 	    <div layout="column" class="fixed-div">
 	    	<md-toolbar ng-repeat="item in data" ng-if="$last" class="graphHeader">
-	    		<h1>{{ symbol }}</h1>
-	    		<h2>{{ item[4] | number : 2 }}</h2>
+	    		<div id="headerLeftCont">
+		    		<h1>{{ item[4] | number : 2 | currency}}</h1>
+		    		<h4 ng-class="dynamicClass">{{ changeSymbol }}{{ percentageChange | number : 2 }}%</h2>
+	    		</div>
+	    		<div id="headerRightCont">
+	    			<h1>{{ symbol }}</h1>
+	    			<h4>{{ longName }}</h4>
+	    		</div>
 	    	</md-toolbar>
 	   		<div id="chart1"> 
 		        <div class="chart"></div>
 			</div>
 			<p>
-			<ul ng-repeat="item in data" ng-if="$last" class="stockData">
-				<li>Open - {{ item[1] | number : 2 }}</li>
-				<li>High - {{ item[2] | number : 2 }}</li>
-				<li>Low - {{ item[3] | number : 2 }}</li>
-				<!-- <li>Close - {{ item[4] | number : 2 }}</li> -->
-			</ul>
+			<div layout="row" layout-padding class="stats">
+				<div flex="25">
+			 	<h4>{{ stats }}</h4>
+				<p>
+					<ul ng-repeat="item in data" ng-if="$last" class="stockData">
+						<li>OPEN<span class="statRight">{{ item[1] | number : 2}}</span></li>
+						<li>HIGH<span class="statRight">{{ item[2] | number : 2}}</span></li>
+						<li>LOW<span class="statRight">{{ item[3] | number : 2}}</span></li>
+						<li>CLOSE<span class="statRight">{{ item[4] | number : 2}}</span></li>
+					</ul>
+				</div>
+				<div flex="15"></div>
+				<div flex="60">
+				  <h4>{{ about }}</h4>
+				  <p>
+				  	{{ description }}
+				  	<br/>
+				  	<a class="tickUp" href="{{ companyProfileLink }}" target="_blank">{{ more }}</a>
+				</div>
+			</div>
+			<div layout="row" layout-padding>
+			<div flex>
+			<h4 class="white">{{ headlines }} {{ shortName }}</h4>
+				<ul class="newsHeadlines">
+        			<li ng-repeat="feeditem in feed.channel.item | limitTo:5">
+             			<h4>-<a href="{{feeditem.link}}" target="_blank"> {{feeditem.title}}</a></h4>
+        			</li>
+   				 </ul>
+			</div>
+			</div>
 	    </div>
     </md-content>
-
 </div>
