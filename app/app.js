@@ -17,11 +17,12 @@ angular.module('myApp', [
   'myApp.view2',
   'myApp.version',
   'firebase',
-  'ngMaterial'
+  'ngMaterial',
+  'myApp.news'
 ]).
 
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/stocks'});
 }]);

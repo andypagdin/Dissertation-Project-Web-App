@@ -1,9 +1,17 @@
-<div ng-controller="View2Ctrl" layout="row">
+<div layout="row">
 
 	<md-sidenav flex="15" class="md-sidenav-left" md-is-locked-open="true">
 	    <md-toolbar class="green">
-	    	<h1 class="md-toolbar-tools">Navigation</h1>
+	    	<!-- <h1 class="md-toolbar-tools">Navigation</h1> -->
 	    </md-toolbar>
+	    <md-list class="sidenav-list">
+	    	<md-list-item ng-click="go('/stocks')">
+	    		Stocks
+	    	</md-list-item>
+	    	<md-list-item ng-click="go('/news')">
+	    		News
+	    	</md-list-item>
+	    </md-list>
     </md-sidenav>
 
     <md-content flex="20" class="second-container">
@@ -17,9 +25,11 @@
 	    			<h3>{{ item.shortName }}</h3>
 	    			<h4>{{ item.symbol }}</h4>
 	    			</div>
-	    			<label class="priceLabel">Price</lebel>
+	    			<div class="stockNumbers">
+		    			<div class="priceLabel">{{ item.price | currency }}</div>
+	    			</div>
 	    		</md-list-item>
-	    	</md>
+	    	</md-list>
 	    </div>
     </md-content>
 
@@ -27,27 +37,122 @@
 	    <div layout="column" class="fixed-div">
 	    	<md-toolbar ng-repeat="item in data" ng-if="$last" class="graphHeader">
 	    		<div id="headerLeftCont">
-		    		<h1>{{ item[4] | number : 2 | currency}}</h1>
-		    		<h4 ng-class="dynamicClass">{{ changeSymbol }}{{ percentageChange | number : 2 }}%</h2>
+		    		<h1>{{ item[4] | number : 2 | currency}}
+			    		<md-tooltip md-direction="right">
+				    		The current price is the actual selling price of a security 
+				    		<br/>
+				    		trading on an exchange, as well as the most recent price of a 
+				    		<br/>
+				    		security listed in an investment portfolio. Current price also 
+				    		<br/>
+				    		refers to the present price of a stock, currency, commodity, 
+				    		<br/>
+				    		stamps or a precious metal.
+			    		</md-tooltip>
+		    		</h1>
+		    		<h4 ng-class="dynamicClass">{{ changeSymbol }}{{ percentageChange | number : 2 }}%
+			    		<md-tooltip md-direction="right">
+				    		Percentage change is a simple mathematical concept that represents the 
+				    		<br/>
+				    		degree of change over time. It is used for many purposes in finance, often 
+				    		<br/>
+				    		to represent the price change of a security.
+			    		</md-tooltip>
+		    		</h4>
 	    		</div>
 	    		<div id="headerRightCont">
-	    			<h1>{{ symbol }}</h1>
+	    		<div class="rights">
+	    			<h1>{{ symbol }}
+	    				<md-tooltip md-direction="left" class="directionLeft">
+	    					A stock symbol is a unique series of letters assigned to a 
+	    					<br/>
+	    					security for trading purposes. Nasdaq-listed securities have four 
+	    					<br/>
+	    					or five characters. If a fifth letter appears, it identifies 
+	    					<br/>
+	    					the security as other than a single issue of common stock. They are 
+	    					<br/>
+	    					also known as "ticker symbols."
+	    				</md-tooltip>
+	    			</h1>
+	    			</div>
 	    			<h4>{{ longName }}</h4>
 	    		</div>
 	    	</md-toolbar>
 	   		<div id="chart1"> 
 		        <div class="chart"></div>
 			</div>
+<!-- 			<select id="chartType">
+				<option ng-repeat="chart in charts" value="{{ chart.value }}">{{ chart.name }}</option>
+			</select> -->
 			<p>
 			<div layout="row" layout-padding class="stats">
 				<div flex="25">
 			 	<h4>{{ stats }}</h4>
 				<p>
 					<ul ng-repeat="item in data" ng-if="$last" class="stockData">
-						<li>OPEN<span class="statRight">{{ item[1] | number : 2}}</span></li>
-						<li>HIGH<span class="statRight">{{ item[2] | number : 2}}</span></li>
-						<li>LOW<span class="statRight">{{ item[3] | number : 2}}</span></li>
-						<li>CLOSE<span class="statRight">{{ item[4] | number : 2}}</span></li>
+						<li>
+							OPEN
+								<span class="statRight">
+									{{ item[1] | number : 2}}
+								</span>
+								<md-tooltip class="tooltip" md-direction="right">
+						        	The price of the first trade for any listed stock is its daily 
+						        	<br/>
+						        	opening price. A security's opening price is an important 
+						        	<br/>
+						        	marker for that day's trading activity, especially for those 
+						        	<br/>
+						        	interested in measuring short-term results such as day 
+						        	<br/>
+						        	traders.
+					       		</md-tooltip>
+						</li>
+						<li>
+							HIGH
+								<span class="statRight">
+									{{ item[2] | number : 2}}
+								</span>
+								<md-tooltip class="tooltip" md-direction="right">
+						        	A security's intraday high trading price. Today's high is the 
+						        	<br/>
+						        	highest price at which a stock traded during the course of 
+						        	<br/>
+						        	the day. Today's high is typically higher than the closing or 
+						        	<br/>
+						        	opening price. More often than not this is higher than the closing price.
+					       		</md-tooltip>
+						</li>
+						<li>
+							LOW
+								<span class="statRight">
+									{{ item[3] | number : 2}}
+								</span>
+								<md-tooltip class="tooltip" md-direction="right">
+						        	A security's intraday low trading price. Today's low is the 
+						        	<br/>
+						        	lowest price at which a stock trades over the course of a 
+						        	<br/>
+						        	trading day. Today's low is typically lower than the opening 
+						        	<br/>
+						        	or closing price.
+					       		</md-tooltip>
+						</li>
+						<li>
+							CLOSE
+								<span class="statRight">
+									{{ item[4] | number : 2}}
+								</span>
+								<md-tooltip class="tooltip" md-direction="right">
+						        	The closing price is the final price at which a security is 
+						        	<br/>
+						        	traded on a given trading day. The closing price represents 
+						        	<br/>
+						        	the most up-to-date valuation of a security until trading 
+						        	<br/>
+						        	commences again on the next trading day.
+					       		</md-tooltip>
+						</li>
 					</ul>
 				</div>
 				<div flex="15"></div>
