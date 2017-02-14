@@ -11,6 +11,9 @@
 	    	<md-list-item ng-click="go('/news')">
 	    		News
 	    	</md-list-item>
+	    	<md-list-item ng-click="go('/about')">
+	    		About
+	    	</md-list-item>
 	    </md-list>
     </md-sidenav>
 
@@ -18,6 +21,7 @@
 	    <div layout="column">
 	    	<md-list class="width">
 	    		<md-toolbar class="lightGray">
+	    			<!-- <img src="../themes/icon/magnifier-tool.png" width="16" height="16"> -->
 	    			<input type="text" ng-model="stockFilter" placeholder="Search by stock" class="stockSearch"/>
 	    		</md-toolbar>
 	    		<md-list-item class="md-3-line" data="{{ item.symbol }}" ng-click="showGraph(item)" ng-repeat="item in stocks | filter: stockFilter">

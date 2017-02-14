@@ -1,0 +1,78 @@
+<div layout="row">
+	<md-sidenav flex="15" class="md-sidenav-left" md-is-locked-open="true">
+	<md-toolbar class="green"></md-toolbar>
+	    <md-list class="sidenav-list">
+	    	<md-list-item ng-click="go('/stocks')">
+	    		Stocks
+	    	</md-list-item>
+	    	<md-list-item ng-click="go('/news')">
+	    		News
+	    	</md-list-item>
+	    	<md-list-item ng-click="go('/about')">
+	    		About
+	    	</md-list-item>
+	    </md-list>
+    </md-sidenav>
+    <md-content flex="85" layout-padding class="third-container">
+    	<h3 class="aboutHeader">About this application</h3>
+    	<md-content flex="60" class="aboutDesc">
+    		This application was made to support beginner stock market and financial analyst's by providing up to date information on various stocks within the NASDAQ financial market.
+    		Below you will find images from within the application explaining what each section of the application's data means. You can also hover over each section within the application to view this data. Trading using the data provided within this application is strictly forbidden.
+    		<br/>
+    		<span class="bold">This application derives no income from the use of the Yahoo Finance APIs.</span>
+    	</md-content>
+    	<hr/>
+    	<md-content layout="row" class="aboutSection">
+    		<div flex="55" class="aboutImage">
+    			<img src="../themes/images/main_with_numbers.png"></img>
+    		</div>
+    		<!-- <div flex="5"></div> -->
+    		<div flex="45" class="aboutListDesc">
+				<ol>
+					<li>The current price is the actual selling price of a security trading on an exchange, as well as the most recent price of a security listed in an investment portfolio. Current price also refers to the present price of a stock, currency, commodity, stamps or a precious metal.</li>
+
+					<li>Percentage change is a simple mathematical concept that represents the degree of change over time. It is used for many purposes in finance, often to represent the price change of a security.</li>
+
+					<li>A stock symbol is a unique series of letters assigned to a security for trading purposes. Nasdaq-listed securities have four or five characters. If a fifth letter appears, it identifies the security as other than a single issue of common stock. They are also known as "ticker symbols".</li>
+
+					<li>Company name.</li>
+
+					<li>The range selector is a tool for selecting ranges to display within the chart. It provides buttons to select preconfigured ranges in the chart, like 1 day, 1 week, 1 month etc.</li>
+
+					<li>Input boxes where min and max dates can be manually input.</li>
+
+					<li>The current price of the stock at the specific date that your cursor is hovered over.</li>
+
+					<li>The price of the first trade for any listed stock is its daily opening price. A security's opening price is an important marker for that day's trading activity, especially for those interested in measuring short-term results such as day traders.</li>
+
+					<li>A security's intraday high trading price. Today's high is the highest price at which a stock traded during the course of the day. Today's high is typically higher than the closing or opening price. More often than not this is higher than the closing price.</li>
+
+					<li>A security's intraday low trading price. Today's low is the lowest price at which a stock trades over the course of a trading day. Today's low is typically lower than the opening or closing price.</li>
+
+					<li>A security's intraday low trading price. Today's low is the lowest price at which a stock trades over the course of a trading day. Today's low is typically lower than the opening or closing price.</li>
+
+					<li>A short description of the selected company. You can click the 'More' link to be directed to the Yahoo Finance profile page of the specific company.</li>
+
+					<li>Latest headlines for your chosen company.</li>
+				</ol>
+    		</div>
+    	</md-content>
+    	<hr/>
+    	<md-content layout="row" class="aboutSection">
+    		<div flex="40">
+    			<img src="../themes/images/menu_with_numbers.png"></img>
+    		</div>
+    		<div flex="70" class="aboutListDesc">
+    			<ol>
+    				<li>Use this search bar to input a symbol or company name.</li>
+
+    				<li>Company name.</li>
+
+    				<li>A stock symbol is a unique series of letters assigned to a security for trading purposes. Nasdaq-listed securities have four or five characters. If a fifth letter appears, it identifies the security as other than a single issue of common stock. They are also known as "ticker symbols".</li>
+
+    				<li>The current price is the actual selling price of a security trading on an exchange, as well as the most recent price of a security listed in an investment portfolio. Current price also refers to the present price of a stock, currency, commodity, stamps or a precious metal.</li>
+    			</ol>
+    		</div>
+    	</md-content>
+    </md-content>
+</div>

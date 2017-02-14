@@ -52,6 +52,30 @@ angular.module('myApp.view2', ['ngRoute'])
         longName : "Tesla, Inc.",
         description : "Tesla, Inc., formerly Tesla Motors, Inc., incorporated on July 1, 2003, designs, develops, manufactures and sells electric vehicles and energy storage products. The Company produces and sells two electric vehicles: the Model S sedan and the Model X sport utility vehicle (SUV). The Company has delivered over 107,000 Model S vehicles across the world. In addition to developing its own vehicles, it sells energy storage products. Its energy storage products include the seven kilowatt-hour and 10 kilowatt-hour Powerwall for residential applications, and the 100 kilowatt-hour Powerpack for commercial and industrial applications."
       },
+      {
+        symbol : "IBM",
+        shortName : "IBM",
+        longName : "International Business Machines Corporation",
+        description : "The company originated in 1911 as the Computing-Tabulating-Recording Company (CTR) and was renamed International Business Machines in 1924. IBM manufactures and markets computer hardware, middleware and software, and offers hosting and consulting services in areas ranging from mainframe computers to nanotechnology."
+      },
+      {
+        symbol : "WMT",
+        shortName : "Walmart",
+        longName : "Walmart Stores, Inc.",
+        description : "Wal-Mart Stores, Inc. engages in retail and wholesale business. It operates through the following business segments: Walmart U.S., Walmart International, and Sam's Club. The Walmart U.S. segment includes retail store and digital retail operations in the U.S. It also offers financial services and related products such as money orders, prepaid cards, wire transfers, check cashing, and bill payment."
+      },
+      {
+        symbol : "JPM",
+        shortName : "JPMorgan Chase",
+        longName : "JPMorgan Chase & Co.",
+        description : "JPMorgan Chase & Co. (JPMorgan Chase), incorporated on October 28, 1968, is a financial holding company. The Company is engaged in investment banking, financial services for consumers and small businesses, commercial banking, financial transaction processing and asset management. JPMorgan Chase's activities are organized into four business segments, as well as a Corporate segment. The Company's segments are Consumer & Community Banking, Corporate & Investment Bank, Commercial Banking and Asset Management."
+      },
+      {
+        symbol : "NVDA",
+        shortName : "Nvidia",
+        longName : "Nvidia Corporation",
+        description : "in 1999 sparked the growth of the PC gaming market, redefined modern computer graphics, and revolutionized parallel computing. More recently, GPU deep learning ignited modern AI — the next era of computing — with the GPU acting as the brain of computers, robots, and self-driving cars that can perceive and understand the world. Today, NVIDIA is increasingly known as “the AI computing company.”"
+      }
     ];
 
     $scope.charts = [

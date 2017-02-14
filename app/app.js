@@ -18,7 +18,8 @@ angular.module('myApp', [
   'myApp.version',
   'firebase',
   'ngMaterial',
-  'myApp.news'
+  'myApp.news',
+  'myApp.about'
 ]).
 
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

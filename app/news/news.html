@@ -8,9 +8,27 @@
 	    	<md-list-item ng-click="go('/news')">
 	    		News
 	    	</md-list-item>
+	    	<md-list-item ng-click="go('/about')">
+	    		About
+	    	</md-list-item>
 	    </md-list>
     </md-sidenav>
+<!--     <md-content flex="85" class="third-container">
+    	<ul class="newsHeadlines">
+        	<li ng-repeat="feeditem in feed.channel.item">
+            	<h4>-<a href="{{feeditem.link}}" target="_blank"> {{feeditem.title}}</a>
+            	</h4>
+        	</li>
+   		</ul>
+    </md-content> -->
     <md-content flex="85" class="third-container">
-
+    	<ul class="newsHeadlines">
+        	<li ng-repeat="stock in newsArr">
+            	<h3 class="newsHeader">{{stock.description}}</h3>		
+	        <ul>
+	            <li ng-repeat="compNews in stock.item | limitTo: 10" class="newsText"><a href="{{ compNews.link }}" target="_blank">{{ compNews.title }}</a></li>
+	        </ul>
+        	</li>
+   		</ul>
     </md-content>
 </div>
