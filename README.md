@@ -16,4 +16,4 @@ npm install
 npm start
 ```
 
-Browse the app at localhost:8000/
+Browse the app at localhost:8000/stocks

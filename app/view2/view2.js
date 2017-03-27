@@ -78,35 +78,13 @@ angular.module('myApp.view2', ['ngRoute'])
       }
     ];
 
-    $scope.charts = [
-    	{
-    		name : "Line",
-    		value : "line"
-    	},
-    	{
-    		name : "Candlestick",
-    		value : "candlestick"
-    	}
-    ];
-
 	angular.forEach($scope.stocks, function(value, key){
-	var url = "https://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + value.symbol + "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-	$http.get(url).then(function(response) {
-		var LastTradePrice = response.data.query.results.quote.LastTradePriceOnly;
-		value.price = LastTradePrice
-	});
+		var url = "https://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + value.symbol + "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+		$http.get(url).then(function(response) {
+			var LastTradePrice = response.data.query.results.quote.LastTradePriceOnly;
+			value.price = LastTradePrice
+		});
 	})
-
-	// angular.forEach($scope.stocks, function(value, key){
-	// var url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + value.symbol + "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-	// $http.get(url).then(function(response) {
-	// 	var LastTradePrice = response.data.query.results.quote;
-	// 	//var Volume = response.data.query.results.quote.Volume;
-	// 	//value.price = LastTradePrice
-	// 	//value.volume = Volume
-	// 	console.log(LastTradePrice)
-	// });
-	// })
 
 	function RefreshFeed($scope, $http) {
 		// Define the JSON feed for fetching the RSS feed
@@ -123,14 +101,12 @@ angular.module('myApp.view2', ['ngRoute'])
 
 		function createUrl(url, qs) {
 		    if(!qs) { return url; }
-
 		    var params = Object.keys(qs);
 		    if(params.length) {
 		        url = url + '?' + params.map(function(p) {
 		            return p +'='+ encodeURIComponent(qs[p]);
 		        }).join('&');
 		    }
-		    
 		    return url;
 		}
 
@@ -150,17 +126,12 @@ angular.module('myApp.view2', ['ngRoute'])
 		 }
 
 		function createUrlYahoo(ticker, from, to) {
-		    //"Historical Prices" -> "Set Date Range" -> "Get Prices"..
-		    //  http://finance.yahoo.com/q/hp?s=MSFT&a=00&b=1&c=2015&d=11&e=31&f=2015&g=d
-		    //.. -> "Download to Spreadsheet":
-		    //  http://real-chart.finance.yahoo.com/table.csv?s=MSFT&a=00&b=1&c=2015&d=11&e=31&f=2017&g=d&ignore=.csv
 		    
 		    var urlBase = 'http://real-chart.finance.yahoo.com/table.csv';
 		    var qs = {};
 		    
 		    function qsDate(paramNames, date) {
 		        //Yahoo format: Month (zero based) *before* day, and then year:
-		        //http://stackoverflow.com/questions/2013255/how-to-get-year-month-day-from-a-date-object
 		        var dateParts = [date.getUTCMonth(), date.getUTCDate(), date.getUTCFullYear()];
 		        
 		        dateParts.forEach(function(d, i) {
@@ -184,7 +155,6 @@ angular.module('myApp.view2', ['ngRoute'])
 		        //Remove header row and any empty rows (there's usually one at the end):
 		        return (row && (i !== 0));
 		    });
-		    //console.log(days);
 		    
 		    //.sort(): Highcharts wants the data sorted ascending by date,
 		    //         and luckily each "day" row starts with the date in the sortable yyyy-mm-dd format:
@@ -208,7 +178,6 @@ angular.module('myApp.view2', ['ngRoute'])
 		        data: ohlcData,
 
 		        type: 'line',
-		        //http://stackoverflow.com/questions/9849806/data-grouping-into-weekly-monthly-by-user
 		        dataGrouping: { enabled: false },
 		        tooltip:      { valueDecimals: 2 },
 		    };
@@ -253,9 +222,6 @@ angular.module('myApp.view2', ['ngRoute'])
 		        chart: {
 		            renderTo: document.querySelector('#chart1 .chart')
 		        },
-		        // title: {
-		        //     text: symbol + ' Stock Price'
-		        // },
 		        rangeSelector: {
 		            //3 months:
 		            selected: 1
